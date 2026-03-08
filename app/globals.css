@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    background-color: #121212;
+    color: #ffffff;
+    margin: 0;
+    padding: 0;
+    /* Smooth scrolling is nice, but might interfere with framer-motion useScroll slightly.
+       For general pages it's good, but we usually let framer-motion handle the physics */
+  }
+}
+
+@layer utilities {
+  .glass {
+    @apply bg-white/5 backdrop-blur-md border border-white/10 shadow-xl;
+  }
+}
