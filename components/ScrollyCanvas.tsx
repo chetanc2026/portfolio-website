@@ -28,9 +28,9 @@ export default function ScrollyCanvas({ frameCount = 120 }: ScrollyCanvasProps) 
 
         for (let i = 0; i < frameCount; i++) {
             const img = new Image();
-            // Format: frame_000_delay-0.066s.png
+            // Format: 000.webp, 001.webp, etc.
             const frameString = String(i).padStart(3, "0");
-            img.src = `/sequence/frame_${frameString}_delay-0.066s.png`;
+            img.src = `/seq/${frameString}.webp`;
             img.onload = () => {
                 loadedCount++;
                 if (loadedCount === frameCount) {
