@@ -74,7 +74,7 @@ export default function Skills() {
                                     viewport={{ once: true }}
                                     transition={{ duration: 0.3, delay: i * 0.03 }}
                                     whileHover={{ scale: 1.05, y: -2 }}
-                                    className="px-4 py-2 rounded-full text-xs font-medium tracking-wider border border-white/[0.06] bg-white/[0.02] text-white/45 hover:border-amber-500/30 hover:text-amber-300 hover:bg-amber-500/[0.04] transition-all duration-300 cursor-default"
+                                    className="px-4 py-2 rounded-full text-xs font-medium tracking-wider border border-white/[0.06] bg-white/[0.02] text-white/45 hover:border-indigo-500/30 hover:text-indigo-300 hover:bg-indigo-500/[0.04] transition-all duration-300 cursor-default"
                                 >
                                     {skill}
                                 </motion.span>
@@ -126,7 +126,7 @@ export default function Skills() {
                                 className="glass-card glass-card-hover rounded-xl p-4"
                             >
                                 <div className="flex items-start gap-2.5">
-                                    <div className="mt-1 w-1.5 h-1.5 rounded-full bg-amber-500/50 shrink-0" />
+                                    <div className="mt-1 w-1.5 h-1.5 rounded-full bg-indigo-500/50 shrink-0" />
                                     <p className="text-sm text-white/45 font-light leading-relaxed">{cert}</p>
                                 </div>
                             </motion.div>

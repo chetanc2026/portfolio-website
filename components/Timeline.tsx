@@ -75,7 +75,7 @@ export default function Timeline() {
 
                 <div className="relative">
                     {/* Vertical line with gradient */}
-                    <div className="absolute left-[7px] top-2 bottom-2 w-[1px] bg-gradient-to-b from-amber-500/20 via-white/[0.06] to-transparent" />
+                    <div className="absolute left-[7px] top-2 bottom-2 w-[1px] bg-gradient-to-b from-indigo-500/20 via-white/[0.06] to-transparent" />
 
                     <div className="space-y-10">
                         {timeline.map((item, i) => (
@@ -88,18 +88,18 @@ export default function Timeline() {
                                 className="relative pl-8"
                             >
                                 {/* Amber dot */}
-                                <div className="absolute left-0 top-1.5 w-[15px] h-[15px] rounded-full border-2 border-amber-500/30 bg-[#121212]" />
+                                <div className="absolute left-0 top-1.5 w-[15px] h-[15px] rounded-full border-2 border-indigo-500/30 bg-[#121212]" />
 
                                 <div>
                                     <h3 className="text-lg font-semibold text-white/90">{item.role}</h3>
-                                    <p className="text-sm text-amber-400/50 font-light mt-0.5">{item.org}</p>
+                                    <p className="text-sm text-indigo-400/50 font-light mt-0.5">{item.org}</p>
                                     <p className="text-xs text-white/25 font-light mt-1 tracking-wider">{item.period}</p>
 
                                     {item.points.length > 0 && (
                                         <ul className="mt-4 space-y-2">
                                             {item.points.map((point, pi) => (
                                                 <li key={pi} className="flex items-start gap-2.5">
-                                                    <div className="mt-1.5 w-1 h-1 rounded-full bg-amber-500/40 shrink-0" />
+                                                    <div className="mt-1.5 w-1 h-1 rounded-full bg-indigo-500/40 shrink-0" />
                                                     <p className="text-sm text-white/40 font-light leading-relaxed">{point}</p>
                                                 </li>
                                             ))}

@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 export default function Contact() {
     return (
         <section className="w-full py-24 md:py-32 px-6 md:px-16 lg:px-28 relative overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-t from-amber-500/[0.02] via-transparent to-transparent pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-t from-indigo-500/[0.02] via-transparent to-transparent pointer-events-none" />
 
             <div className="max-w-3xl mx-auto text-center relative z-10">
                 <motion.div
@@ -32,7 +32,7 @@ export default function Contact() {
                             href="mailto:chetan.c2026@iimbg.ac.in"
                             className="group relative px-7 py-3 rounded-full overflow-hidden text-xs font-semibold tracking-wider uppercase"
                         >
-                            <div className="absolute inset-0 bg-gradient-to-r from-amber-500 to-red-500 opacity-90 group-hover:opacity-100 transition-opacity" />
+                            <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-cyan-500 opacity-90 group-hover:opacity-100 transition-opacity" />
                             <span className="relative z-10 text-white flex items-center gap-2">
                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                     <rect width="20" height="16" x="2" y="4" rx="2" />

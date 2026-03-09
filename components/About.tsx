@@ -21,7 +21,7 @@ export default function About() {
 
                     <div className="space-y-4 text-white/45 text-[15px] font-light leading-relaxed">
                         <p>
-                            MBA candidate at <strong className="text-amber-300/80 font-medium">IIM Bodh Gaya</strong> with a PharmD background and experience in product strategy, healthcare market analysis, and digital growth models.
+                            MBA candidate at <strong className="text-indigo-300/80 font-medium">IIM Bodh Gaya</strong> with a PharmD background and experience in product strategy, healthcare market analysis, and digital growth models.
                         </p>
                         <p>
                             My work focuses on combining pharmaceutical knowledge with analytics and market intelligence tools like <strong className="text-white/70 font-medium">IQVIA</strong> to drive strategic decision making and product growth.

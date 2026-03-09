@@ -88,7 +88,7 @@ export default function Achievements() {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ duration: 0.4, delay: i * 0.08 }}
-                                className="glass-card rounded-xl p-5 border-l-2 border-l-amber-500/20"
+                                className="glass-card rounded-xl p-5 border-l-2 border-l-indigo-500/20"
                             >
                                 <h3 className="text-sm font-medium text-white/70 leading-relaxed mb-1">{pub.title}</h3>
                                 <p className="text-xs text-white/30 font-light">{pub.journal} · {pub.role}</p>
@@ -123,7 +123,7 @@ export default function Achievements() {
                                 className="glass-card glass-card-hover rounded-xl p-5"
                             >
                                 <h3 className="text-sm font-medium text-white/65 mb-1">{l.role}</h3>
-                                <p className="text-xs text-amber-400/30 font-light">{l.org}</p>
+                                <p className="text-xs text-indigo-400/30 font-light">{l.org}</p>
                             </motion.div>
                         ))}
                     </div>

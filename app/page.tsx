@@ -20,7 +20,7 @@ export default function Home() {
 
             {/* Warm divider */}
             <div className="w-full flex justify-center py-4">
-                <div className="w-24 h-[1px] bg-gradient-to-r from-transparent via-amber-500/15 to-transparent" />
+                <div className="w-24 h-[1px] bg-gradient-to-r from-transparent via-indigo-500/15 to-transparent" />
             </div>
 
             {/* SCAN LAYER: Quick highlights */}
@@ -54,7 +54,7 @@ export default function Home() {
                         © {new Date().getFullYear()} Dr. Chetan Choudhary. All rights reserved.
                     </p>
                     <div className="flex items-center gap-5">
-                        <a href="mailto:chetan.c2026@iimbg.ac.in" className="text-[11px] text-white/20 hover:text-amber-400/50 transition-colors tracking-wider">Email</a>
+                        <a href="mailto:chetan.c2026@iimbg.ac.in" className="text-[11px] text-white/20 hover:text-indigo-400/50 transition-colors tracking-wider">Email</a>
                         <a href="https://www.linkedin.com/in/drchetanchoudhary/" target="_blank" rel="noopener noreferrer" className="text-[11px] text-white/20 hover:text-blue-400/50 transition-colors tracking-wider">LinkedIn</a>
                         <a href="https://www.instagram.com/dr.chetanchoudhary_2027" target="_blank" rel="noopener noreferrer" className="text-[11px] text-white/20 hover:text-pink-400/50 transition-colors tracking-wider">Instagram</a>
                     </div>

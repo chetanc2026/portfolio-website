@@ -62,7 +62,7 @@ export default function CaseStudies() {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ duration: 0.4, delay: i * 0.08 }}
-                                className={`glass-card rounded-xl overflow-hidden transition-all duration-300 ${isOpen ? "border-amber-500/15" : ""}`}
+                                className={`glass-card rounded-xl overflow-hidden transition-all duration-300 ${isOpen ? "border-indigo-500/15" : ""}`}
                             >
                                 <button
                                     onClick={() => setOpenId(isOpen ? null : cs.id)}
@@ -72,7 +72,7 @@ export default function CaseStudies() {
                                     <motion.svg
                                         animate={{ rotate: isOpen ? 180 : 0 }}
                                         transition={{ duration: 0.3 }}
-                                        width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-amber-400/30 shrink-0 ml-4"
+                                        width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-indigo-400/30 shrink-0 ml-4"
                                     >
                                         <path d="M6 9l6 6 6-6" />
                                     </motion.svg>
@@ -87,7 +87,7 @@ export default function CaseStudies() {
                                             transition={{ duration: 0.4, ease: [0.25, 1, 0.5, 1] }}
                                             className="overflow-hidden"
                                         >
-                                            <div className="px-6 pb-6 border-t border-amber-500/[0.08]">
+                                            <div className="px-6 pb-6 border-t border-indigo-500/[0.08]">
                                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-5">
                                                     {[
                                                         { label: "Problem", content: cs.problem },
@@ -96,7 +96,7 @@ export default function CaseStudies() {
                                                         { label: "Outcome", content: cs.outcome },
                                                     ].map((block, bi) => (
                                                         <div key={bi}>
-                                                            <p className="text-[10px] font-semibold tracking-[0.2em] uppercase text-amber-400/40 mb-2">{block.label}</p>
+                                                            <p className="text-[10px] font-semibold tracking-[0.2em] uppercase text-indigo-400/40 mb-2">{block.label}</p>
                                                             <p className="text-sm text-white/45 font-light leading-relaxed">{block.content}</p>
                                                         </div>
                                                     ))}

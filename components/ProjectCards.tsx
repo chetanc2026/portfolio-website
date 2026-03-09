@@ -7,7 +7,7 @@ const projects = [
         title: "Ozone Pharmaceuticals Product Strategy",
         description: "SKU prioritization framework for a cardio-diabetic portfolio using IQVIA data.",
         tools: ["IQVIA", "CMARC", "PMPR", "Excel"],
-        accent: "from-amber-500/15",
+        accent: "from-indigo-500/15",
     },
     {
         title: "Dettol Brand Revitalization Strategy",
@@ -59,7 +59,7 @@ export default function ProjectCards() {
 
                             <div className="flex flex-wrap gap-2 mb-5">
                                 {p.tools.map((t, ti) => (
-                                    <span key={ti} className="px-2.5 py-1 text-[10px] font-medium tracking-wider uppercase rounded-full border border-amber-500/10 bg-amber-500/[0.03] text-amber-300/40">
+                                    <span key={ti} className="px-2.5 py-1 text-[10px] font-medium tracking-wider uppercase rounded-full border border-indigo-500/10 bg-indigo-500/[0.03] text-indigo-300/40">
                                         {t}
                                     </span>
                                 ))}
@@ -67,7 +67,7 @@ export default function ProjectCards() {
 
                             <a
                                 href="#case-studies"
-                                className="text-xs font-semibold tracking-wider uppercase text-amber-400/50 hover:text-amber-300 transition-colors duration-300 flex items-center gap-1.5"
+                                className="text-xs font-semibold tracking-wider uppercase text-indigo-400/50 hover:text-indigo-300 transition-colors duration-300 flex items-center gap-1.5"
                             >
                                 View Case Study
                                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
