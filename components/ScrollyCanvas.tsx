@@ -121,9 +121,9 @@ export default function ScrollyCanvas({ frameCount = 120 }: ScrollyCanvasProps) 
                 />
                 {/* Loading skeleton */}
                 {!imagesLoaded && (
-                    <div className="absolute inset-0 flex items-center justify-center bg-[#0a0a0f] text-white/30 text-xs tracking-[0.3em] uppercase font-light">
+                    <div className="absolute inset-0 flex items-center justify-center bg-[#121212] text-white/25 text-xs tracking-[0.25em] uppercase font-light">
                         <div className="flex flex-col items-center gap-4">
-                            <div className="w-8 h-8 border border-indigo-500/30 border-t-indigo-500 rounded-full animate-spin" />
+                            <div className="w-6 h-6 border border-white/15 border-t-white/40 rounded-full animate-spin" />
                             Loading Sequence...
                         </div>
                     </div>
