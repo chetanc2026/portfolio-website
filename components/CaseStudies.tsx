@@ -17,7 +17,7 @@ const caseStudies = [
         title: "Dettol Brand Revitalization Strategy",
         problem: "Declining brand engagement in Tier-2 markets. Dettol's messaging and product positioning were optimized for urban consumers, leaving a gap in underserved but high-potential markets.",
         analysis: "Conducted consumer behavior study across Tier-2 demographics. Analyzed competitive positioning of alternatives. Studied purchase triggers, awareness gaps, and channel preferences in target markets.",
-        strategy: "Repositioned the brand through consumer storytelling that resonated with Tier-2 values (family health, affordability, trust). Designed a three-phase bundled NPL (New Product Launch) strategy targeting 180M+ potential households.",
+        strategy: "Repositioned the brand through consumer storytelling that resonated with Tier-2 values (family health, affordability, trust). Designed a three-phase bundled NPL strategy targeting 180M+ potential households.",
         outcome: "Created stronger differentiation in Tier-2 markets. Bundled product approach increased perceived value. Storytelling framework provided a template for future market entry in similar demographics.",
     },
     {
@@ -44,8 +44,10 @@ export default function CaseStudies() {
                     className="mb-12"
                 >
                     <p className="section-label mb-4">Case Studies</p>
-                    <div className="w-10 h-[1px] bg-white/15 mb-6" />
-                    <h2 className="text-3xl md:text-4xl font-bold text-white/90">Deep Dive</h2>
+                    <div className="w-10 h-[2px] glow-line rounded-full mb-6" />
+                    <h2 className="text-3xl md:text-4xl font-bold text-white/90">
+                        Deep <span className="gradient-text">Dive</span>
+                    </h2>
                     <p className="mt-3 text-sm text-white/35 font-light">Click a project to explore the consulting-style breakdown.</p>
                 </motion.div>
 
@@ -60,9 +62,8 @@ export default function CaseStudies() {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ duration: 0.4, delay: i * 0.08 }}
-                                className="glass-card rounded-xl overflow-hidden"
+                                className={`glass-card rounded-xl overflow-hidden transition-all duration-300 ${isOpen ? "border-amber-500/15" : ""}`}
                             >
-                                {/* Header — always visible */}
                                 <button
                                     onClick={() => setOpenId(isOpen ? null : cs.id)}
                                     className="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-white/[0.02] transition-colors duration-300"
@@ -71,13 +72,12 @@ export default function CaseStudies() {
                                     <motion.svg
                                         animate={{ rotate: isOpen ? 180 : 0 }}
                                         transition={{ duration: 0.3 }}
-                                        width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white/30 shrink-0 ml-4"
+                                        width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-amber-400/30 shrink-0 ml-4"
                                     >
                                         <path d="M6 9l6 6 6-6" />
                                     </motion.svg>
                                 </button>
 
-                                {/* Expandable content */}
                                 <AnimatePresence>
                                     {isOpen && (
                                         <motion.div
@@ -87,7 +87,7 @@ export default function CaseStudies() {
                                             transition={{ duration: 0.4, ease: [0.25, 1, 0.5, 1] }}
                                             className="overflow-hidden"
                                         >
-                                            <div className="px-6 pb-6 border-t border-white/[0.04]">
+                                            <div className="px-6 pb-6 border-t border-amber-500/[0.08]">
                                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-5">
                                                     {[
                                                         { label: "Problem", content: cs.problem },
@@ -96,7 +96,7 @@ export default function CaseStudies() {
                                                         { label: "Outcome", content: cs.outcome },
                                                     ].map((block, bi) => (
                                                         <div key={bi}>
-                                                            <p className="text-[10px] font-semibold tracking-[0.2em] uppercase text-white/25 mb-2">{block.label}</p>
+                                                            <p className="text-[10px] font-semibold tracking-[0.2em] uppercase text-amber-400/40 mb-2">{block.label}</p>
                                                             <p className="text-sm text-white/45 font-light leading-relaxed">{block.content}</p>
                                                         </div>
                                                     ))}

@@ -3,11 +3,11 @@
 import { motion } from "framer-motion";
 
 const highlights = [
-    { stat: "97.04%", label: "CAT Percentile" },
-    { stat: "PM Intern", label: "Ozone Pharmaceuticals" },
-    { stat: "23+", label: "SKUs Analyzed (IQVIA)" },
-    { stat: "Published", label: "Research Author" },
-    { stat: "Finalist", label: "XLRI Case Competitions" },
+    { stat: "97.04%", label: "CAT Percentile", icon: "📊" },
+    { stat: "PM Intern", label: "Ozone Pharmaceuticals", icon: "💊" },
+    { stat: "23+", label: "SKUs Analyzed (IQVIA)", icon: "📈" },
+    { stat: "Published", label: "Research Author", icon: "📄" },
+    { stat: "Finalist", label: "XLRI Case Competitions", icon: "🏆" },
 ];
 
 export default function Highlights() {
@@ -24,8 +24,9 @@ export default function Highlights() {
                             transition={{ duration: 0.4, delay: i * 0.08 }}
                             className="glass-card glass-card-hover rounded-xl p-5 text-center cursor-default"
                         >
-                            <p className="text-2xl md:text-3xl font-bold text-white mb-1">{h.stat}</p>
-                            <p className="text-[11px] text-white/35 font-medium tracking-wide uppercase">{h.label}</p>
+                            <span className="text-xl mb-2 block">{h.icon}</span>
+                            <p className="text-2xl md:text-3xl font-bold gradient-text mb-1">{h.stat}</p>
+                            <p className="text-[10px] text-white/30 font-medium tracking-wider uppercase">{h.label}</p>
                         </motion.div>
                     ))}
                 </div>

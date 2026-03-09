@@ -11,7 +11,7 @@
   }
 
   ::selection {
-    background: rgba(99, 102, 241, 0.35);
+    background: rgba(245, 158, 11, 0.3);
     color: #fff;
   }
 
@@ -24,20 +24,12 @@
   }
 
   ::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.15);
+    background: linear-gradient(180deg, #f59e0b, #ef4444);
     border-radius: 3px;
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.25);
   }
 }
 
 @layer utilities {
-  .glass {
-    @apply bg-white/[0.03] backdrop-blur-xl border border-white/[0.06] shadow-xl;
-  }
-
   .glass-card {
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.035) 0%, rgba(255, 255, 255, 0.01) 100%);
     backdrop-filter: blur(16px);
@@ -50,16 +42,44 @@
   }
 
   .glass-card-hover:hover {
-    border-color: rgba(255, 255, 255, 0.12);
-    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4);
+    border-color: rgba(245, 158, 11, 0.2);
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(245, 158, 11, 0.06);
     transform: translateY(-2px);
   }
 
-  .accent-line {
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+  .gradient-text {
+    background: linear-gradient(135deg, #fde68a 0%, #f59e0b 40%, #ef4444 80%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .glow-line {
+    background: linear-gradient(90deg, transparent, #f59e0b, #ef4444, transparent);
+    box-shadow: 0 0 15px rgba(245, 158, 11, 0.3);
+  }
+
+  .text-glow {
+    text-shadow: 0 0 30px rgba(245, 158, 11, 0.2), 0 0 60px rgba(239, 68, 68, 0.1);
+  }
+
+  .text-glow-white {
+    text-shadow: 0 2px 15px rgba(255, 255, 255, 0.2), 0 4px 30px rgba(0, 0, 0, 0.5);
   }
 
   .section-label {
-    @apply text-[11px] font-semibold tracking-[0.25em] uppercase text-white/30;
+    @apply text-[11px] font-semibold tracking-[0.25em] uppercase text-amber-400/70;
+  }
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-8px);
   }
 }

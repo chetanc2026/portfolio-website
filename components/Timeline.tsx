@@ -16,11 +16,30 @@ const timeline = [
         ],
     },
     {
+        role: "Management Trainee · Luxury Real Estate",
+        org: "Sriraj Infra",
+        period: "Mar – Apr 2025",
+        points: [
+            "Brand activation and business development in Ahmedabad",
+            "Managed 15+ client interactions, streamlined CRM pipeline",
+            "SEO campaigns boosting organic reach ~25%",
+        ],
+    },
+    {
+        role: "Marketing Live Project · MSME Startup",
+        org: "Decoral Studio",
+        period: "Sep – Nov 2025",
+        points: [
+            "End-to-end outbound outreach and lead pipeline",
+            "Conversion tracking and deal-closure coordination",
+        ],
+    },
+    {
         role: "Clinical Pharmacy Intern",
         org: "Geetanjali Hospital",
         period: "Aug 2023 – Jul 2024",
         points: [
-            "Collaborated with healthcare providers on medication therapy optimization",
+            "Medication therapy optimization with healthcare providers",
             "Patient counseling and medication review",
             "Clinical research on GAD patients (WHOQOL-BREF scale)",
         ],
@@ -50,13 +69,13 @@ export default function Timeline() {
                     transition={{ duration: 0.6 }}
                     className="mb-12"
                 >
-                    <p className="section-label mb-4">Experience & Education</p>
-                    <div className="w-10 h-[1px] bg-white/15" />
+                    <p className="section-label mb-4">Experience &amp; Education</p>
+                    <div className="w-10 h-[2px] glow-line rounded-full" />
                 </motion.div>
 
                 <div className="relative">
-                    {/* Vertical line */}
-                    <div className="absolute left-[7px] top-2 bottom-2 w-[1px] bg-white/[0.08]" />
+                    {/* Vertical line with gradient */}
+                    <div className="absolute left-[7px] top-2 bottom-2 w-[1px] bg-gradient-to-b from-amber-500/20 via-white/[0.06] to-transparent" />
 
                     <div className="space-y-10">
                         {timeline.map((item, i) => (
@@ -65,22 +84,22 @@ export default function Timeline() {
                                 initial={{ opacity: 0, x: -20 }}
                                 whileInView={{ opacity: 1, x: 0 }}
                                 viewport={{ once: true, margin: "-30px" }}
-                                transition={{ duration: 0.5, delay: i * 0.1 }}
+                                transition={{ duration: 0.5, delay: i * 0.08 }}
                                 className="relative pl-8"
                             >
-                                {/* Dot */}
-                                <div className="absolute left-0 top-1.5 w-[15px] h-[15px] rounded-full border-2 border-white/20 bg-[#121212]" />
+                                {/* Amber dot */}
+                                <div className="absolute left-0 top-1.5 w-[15px] h-[15px] rounded-full border-2 border-amber-500/30 bg-[#121212]" />
 
                                 <div>
                                     <h3 className="text-lg font-semibold text-white/90">{item.role}</h3>
-                                    <p className="text-sm text-white/40 font-light mt-0.5">{item.org}</p>
+                                    <p className="text-sm text-amber-400/50 font-light mt-0.5">{item.org}</p>
                                     <p className="text-xs text-white/25 font-light mt-1 tracking-wider">{item.period}</p>
 
                                     {item.points.length > 0 && (
                                         <ul className="mt-4 space-y-2">
                                             {item.points.map((point, pi) => (
                                                 <li key={pi} className="flex items-start gap-2.5">
-                                                    <div className="mt-1.5 w-1 h-1 rounded-full bg-white/20 shrink-0" />
+                                                    <div className="mt-1.5 w-1 h-1 rounded-full bg-amber-500/40 shrink-0" />
                                                     <p className="text-sm text-white/40 font-light leading-relaxed">{point}</p>
                                                 </li>
                                             ))}
