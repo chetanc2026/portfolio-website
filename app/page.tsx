@@ -1,6 +1,9 @@
 import ScrollyCanvas from "@/components/ScrollyCanvas";
 import Overlay from "@/components/Overlay";
+import FloatingNav from "@/components/FloatingNav";
+import ScrollToTop from "@/components/ScrollToTop";
 import Highlights from "@/components/Highlights";
+import ValueProp from "@/components/ValueProp";
 import About from "@/components/About";
 import Timeline from "@/components/Timeline";
 import ProjectCards from "@/components/ProjectCards";
@@ -12,11 +15,15 @@ import Contact from "@/components/Contact";
 export default function Home() {
     return (
         <main className="relative bg-[#121212] min-h-screen">
+            {/* Floating nav + scroll-to-top */}
+            <FloatingNav />
+            <ScrollToTop />
+
             {/* Hero overlay text */}
             <Overlay />
 
-            {/* Canvas scroll animation */}
-            <ScrollyCanvas frameCount={120} />
+            {/* Canvas scroll animation — 60 frames */}
+            <ScrollyCanvas frameCount={60} />
 
             {/* Warm divider */}
             <div className="w-full flex justify-center py-4">
@@ -26,11 +33,18 @@ export default function Home() {
             {/* SCAN LAYER: Quick highlights */}
             <Highlights />
 
+            {/* What I Bring — value proposition */}
+            <ValueProp />
+
             {/* About */}
-            <About />
+            <section id="about">
+                <About />
+            </section>
 
             {/* Experience timeline */}
-            <Timeline />
+            <section id="experience">
+                <Timeline />
+            </section>
 
             {/* SCAN LAYER: Featured project cards */}
             <ProjectCards />
@@ -39,13 +53,17 @@ export default function Home() {
             <CaseStudies />
 
             {/* Skills & Certifications */}
-            <Skills />
+            <section id="skills">
+                <Skills />
+            </section>
 
             {/* Achievements + Publications + Leadership */}
             <Achievements />
 
             {/* Contact */}
-            <Contact />
+            <section id="contact">
+                <Contact />
+            </section>
 
             {/* Footer */}
             <footer className="py-10 border-t border-white/[0.04]">

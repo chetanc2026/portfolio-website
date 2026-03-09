@@ -22,7 +22,7 @@ export default function Overlay() {
                 style={{ opacity: section1Opacity, y: section1Y }}
                 className="absolute inset-0 flex flex-col items-center justify-center text-center p-6"
             >
-                <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/40 pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/30 to-black/60 pointer-events-none" />
 
                 <div className="relative z-10 flex flex-col items-center max-w-2xl">
                     {/* Badge */}
