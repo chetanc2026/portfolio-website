@@ -22,6 +22,7 @@ const technicalSkills = [
     "Digital Marketing",
     "IQVIA",
     "CMARC",
+    "Tableau",
 ];
 
 export default function Skills() {

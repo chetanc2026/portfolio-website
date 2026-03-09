@@ -26,7 +26,7 @@ export default function Overlay() {
 
                 <div className="relative z-10 flex flex-col items-center max-w-3xl">
                     <h1 className="text-5xl sm:text-6xl md:text-8xl font-black tracking-tight text-white leading-[0.95]">
-                        Chetan
+                        Dr. Chetan
                         <br />
                         Choudhary
                     </h1>
@@ -48,6 +48,7 @@ export default function Overlay() {
                         <a
                             href="/resume.pdf"
                             target="_blank"
+                            download="Chetan_Choudhary_Resume.pdf"
                             className="px-5 py-2.5 rounded-full bg-white text-[#121212] text-xs font-semibold tracking-wider uppercase hover:bg-white/90 transition-all duration-300"
                         >
                             Download Resume
