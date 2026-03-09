@@ -16,7 +16,7 @@ export default function Home() {
 
             {/* Horizontal divider */}
             <div className="w-full flex justify-center py-4">
-                <div className="w-32 h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+                <div className="w-32 h-[1px] bg-gradient-to-r from-transparent via-amber-500/20 to-transparent" />
             </div>
 
             {/* About section with bio and animated stats */}
@@ -34,23 +34,31 @@ export default function Home() {
             {/* Footer */}
             <footer className="relative py-12 border-t border-white/[0.05]">
                 <div className="max-w-7xl mx-auto px-6 md:px-16 flex flex-col md:flex-row items-center justify-between gap-4">
-                    <p className="text-xs text-white/20 font-light tracking-wider">
-                        © {new Date().getFullYear()} Chetan Choudhary. All rights reserved.
+                    <p className="text-xs text-white/25 font-light tracking-wider">
+                        © {new Date().getFullYear()} Dr. Chetan Choudhary. All rights reserved.
                     </p>
                     <div className="flex items-center gap-6">
                         <a
                             href="mailto:chetan.c2026@iimbg.ac.in"
-                            className="text-xs text-white/20 hover:text-indigo-400/60 transition-colors duration-300 tracking-wider"
+                            className="text-xs text-white/25 hover:text-amber-400/60 transition-colors duration-300 tracking-wider"
                         >
                             Email
                         </a>
                         <a
-                            href="https://linkedin.com/in/drchetanchoudhary"
+                            href="https://www.linkedin.com/in/drchetanchoudhary/"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-xs text-white/20 hover:text-indigo-400/60 transition-colors duration-300 tracking-wider"
+                            className="text-xs text-white/25 hover:text-blue-400/60 transition-colors duration-300 tracking-wider"
                         >
                             LinkedIn
+                        </a>
+                        <a
+                            href="https://www.instagram.com/dr.chetanchoudhary_2027"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-xs text-white/25 hover:text-pink-400/60 transition-colors duration-300 tracking-wider"
+                        >
+                            Instagram
                         </a>
                     </div>
                 </div>
