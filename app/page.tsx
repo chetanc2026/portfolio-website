@@ -1,31 +1,59 @@
 import ScrollyCanvas from "@/components/ScrollyCanvas";
 import Overlay from "@/components/Overlay";
-import Projects from "@/components/Projects";
+import About from "@/components/About";
+import Experience from "@/components/Projects";
+import Skills from "@/components/Skills";
+import Contact from "@/components/Contact";
 
 export default function Home() {
     return (
-        <main className="relative bg-background min-h-screen">
-            {/* 
-        The overlay handles the parallax text sections 
-        (it's fixed and pointer-events-none, reading window scroll) 
-      */}
+        <main className="relative bg-[#0a0a0f] min-h-screen">
+            {/* Fixed overlay with parallax text sections */}
             <Overlay />
 
-            {/* 
-        The ScrollyCanvas contains the 500vh container and sticky canvas 
-      */}
+            {/* Scroll-linked canvas animation (500vh) */}
             <ScrollyCanvas frameCount={120} />
 
-            {/* 
-        The Projects grid, sitting naturally in document flow 
-        after the 500vh container finishes scrolling.
-      */}
-            <Projects />
+            {/* Horizontal divider */}
+            <div className="w-full flex justify-center py-4">
+                <div className="w-32 h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+            </div>
 
-            {/* Simple footer */}
-            <footer className="py-12 border-t border-white/10 text-center text-white/40 text-sm font-light">
-                <p>© {new Date().getFullYear()} My Name. All rights reserved.</p>
-                <p className="mt-2 uppercase tracking-widest text-xs">Awwwards inspired.</p>
+            {/* About section with bio and animated stats */}
+            <About />
+
+            {/* Experience section with real project cards */}
+            <Experience />
+
+            {/* Skills and certifications */}
+            <Skills />
+
+            {/* Contact CTA */}
+            <Contact />
+
+            {/* Footer */}
+            <footer className="relative py-12 border-t border-white/[0.05]">
+                <div className="max-w-7xl mx-auto px-6 md:px-16 flex flex-col md:flex-row items-center justify-between gap-4">
+                    <p className="text-xs text-white/20 font-light tracking-wider">
+                        © {new Date().getFullYear()} Chetan Choudhary. All rights reserved.
+                    </p>
+                    <div className="flex items-center gap-6">
+                        <a
+                            href="mailto:chetan.c2026@iimbg.ac.in"
+                            className="text-xs text-white/20 hover:text-indigo-400/60 transition-colors duration-300 tracking-wider"
+                        >
+                            Email
+                        </a>
+                        <a
+                            href="https://linkedin.com/in/drchetanchoudhary"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-xs text-white/20 hover:text-indigo-400/60 transition-colors duration-300 tracking-wider"
+                        >
+                            LinkedIn
+                        </a>
+                    </div>
+                </div>
             </footer>
         </main>
     );
