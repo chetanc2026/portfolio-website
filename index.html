@@ -1,0 +1,1168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Dr. Chetan Choudhary — Supply Chain, Strategy & Healthcare Analytics</title>
+<meta name="description" content="Portfolio of Dr. Chetan Choudhary — Management Trainee, Supply Chain at Jupiter Hospital. PharmD + MBA (IIM Bodh Gaya). Strategic Sourcing, Demand Planning, Vendor Management." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+<style>
+  /* ============ TOKENS (light default, dark override per platform + system) ============ */
+  :root{
+    --bg:#F6F3EC;
+    --bg-elevated:#FFFFFF;
+    --bg-raised:#EFEAE0;
+    --ink:#171310;
+    --ink-muted:#6B6459;
+    --ink-faint:#9C9486;
+    --accent:#C1502E;
+    --accent-ink:#FFFFFF;
+    --accent2:#1E6F5C;
+    --accent2-soft:rgba(30,111,92,0.12);
+    --accent-soft:rgba(193,80,46,0.12);
+    --line:rgba(23,19,16,0.12);
+    --line-soft:rgba(23,19,16,0.07);
+    --shadow:0 20px 60px rgba(23,19,16,0.10);
+    --serif:'Instrument Serif', Georgia, serif;
+    --display:'Space Grotesk', sans-serif;
+    --body:'Inter', sans-serif;
+    /* Fixed "invert" palette — intentionally does NOT flip with light/dark theme.
+       Used only for the contact panel, which is always a dark card regardless of site theme. */
+    --invert-bg:#17130F;
+    --invert-ink:#F6F3EC;
+    --invert-muted:rgba(246,243,236,.62);
+    --invert-faint:rgba(246,243,236,.45);
+    --invert-line:rgba(246,243,236,.14);
+    --invert-field-bg:rgba(246,243,236,.06);
+    --invert-field-bg-focus:rgba(246,243,236,.1);
+    --invert-field-border:rgba(246,243,236,.18);
+    --invert-placeholder:rgba(246,243,236,.34);
+    --invert-accent:#E8815A;
+    --invert-accent2:#4FC5A6;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#121009;
+      --bg-elevated:#1B1712;
+      --bg-raised:#221D16;
+      --ink:#F3EEE4;
+      --ink-muted:#B0A797;
+      --ink-faint:#7C7566;
+      --accent:#E8815A;
+      --accent2:#4FC5A6;
+      --accent2-soft:rgba(79,197,166,0.14);
+      --accent-soft:rgba(232,129,90,0.16);
+      --line:rgba(243,238,228,0.14);
+      --line-soft:rgba(243,238,228,0.08);
+      --shadow:0 24px 70px rgba(0,0,0,0.5);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#121009;
+    --bg-elevated:#1B1712;
+    --bg-raised:#221D16;
+    --ink:#F3EEE4;
+    --ink-muted:#B0A797;
+    --ink-faint:#7C7566;
+    --accent:#E8815A;
+    --accent2:#4FC5A6;
+    --accent2-soft:rgba(79,197,166,0.14);
+    --accent-soft:rgba(232,129,90,0.16);
+    --line:rgba(243,238,228,0.14);
+    --line-soft:rgba(243,238,228,0.08);
+    --shadow:0 24px 70px rgba(0,0,0,0.5);
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:var(--body);
+    background:var(--bg);
+    color:var(--ink);
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+    transition:background .4s ease,color .4s ease;
+  }
+  img,svg{display:block;max-width:100%;}
+  a{color:inherit;}
+  ::selection{background:var(--accent);color:var(--accent-ink);}
+
+  ::-webkit-scrollbar{width:5px;}
+  ::-webkit-scrollbar-track{background:transparent;}
+  ::-webkit-scrollbar-thumb{background:var(--accent);border-radius:3px;}
+
+  /* ============ Custom cursor (desktop / fine pointer only) ============ */
+  .cursor-dot,.cursor-ring{position:fixed;pointer-events:none;z-index:9999;border-radius:50%;}
+  .cursor-dot{width:6px;height:6px;background:var(--accent);transition:opacity .2s;}
+  .cursor-ring{width:32px;height:32px;border:1.5px solid var(--accent);opacity:.55;transition:width .25s,height .25s,border-color .25s;}
+  @media (pointer:coarse){ .cursor-dot,.cursor-ring{display:none;} }
+  body.no-fine-pointer{cursor:auto;}
+
+  #bg-canvas{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:.55;}
+  .grain{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.03;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+  @media (prefers-color-scheme: dark){ .grain{mix-blend-mode:overlay;opacity:.05;} }
+
+  section{position:relative;z-index:10;}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 48px;}
+  @media (max-width:720px){ .wrap{padding:0 22px;} }
+
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    font-family:var(--display);font-size:12px;font-weight:600;letter-spacing:2.2px;text-transform:uppercase;
+    color:var(--accent2);margin-bottom:18px;opacity:0;
+  }
+  .eyebrow::before{content:'';width:22px;height:1.5px;background:var(--accent2);}
+
+  h1,h2,h3{font-family:var(--display);letter-spacing:-.01em;}
+  .display-title{font-family:var(--serif);font-weight:400;line-height:1.02;letter-spacing:-.01em;}
+  .display-title em{font-style:italic;color:var(--accent);}
+
+  .section-title{font-size:clamp(30px,4.2vw,52px);font-weight:600;line-height:1.08;margin-bottom:18px;opacity:0;}
+  .section-desc{max-width:560px;color:var(--ink-muted);font-size:16px;line-height:1.75;opacity:0;}
+  .section-pad{padding:120px 0;}
+  @media (max-width:720px){ .section-pad{padding:76px 0;} }
+
+  .btn{
+    display:inline-flex;align-items:center;gap:10px;
+    font-family:var(--display);font-size:14px;font-weight:600;letter-spacing:.2px;
+    padding:14px 26px;border-radius:100px;text-decoration:none;cursor:pointer;
+    transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s;border:1px solid transparent;
+  }
+  .btn-solid{background:var(--ink);color:var(--bg);}
+  .btn-solid:hover{transform:translateY(-3px);box-shadow:0 14px 34px rgba(0,0,0,.22);}
+  .btn-outline{border-color:var(--line);color:var(--ink);}
+  .btn-outline:hover{transform:translateY(-3px);border-color:var(--ink);}
+  .btn svg{width:15px;height:15px;transition:transform .3s;}
+  .btn:hover svg{transform:translate(3px,-3px);}
+
+  .chip{
+    display:inline-flex;align-items:center;padding:9px 16px;border-radius:100px;
+    border:1px solid var(--line);font-family:var(--display);font-size:12.5px;font-weight:600;
+    color:var(--ink-muted);background:var(--bg-elevated);letter-spacing:.2px;white-space:nowrap;
+  }
+  .chip.accent{border-color:transparent;background:var(--accent-soft);color:var(--accent);}
+
+  /* ============ NAV ============ */
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:1000;
+    display:flex;justify-content:space-between;align-items:center;
+    padding:26px 48px;transition:all .4s ease;
+  }
+  nav.scrolled{
+    padding:14px 48px;background:rgba(246,243,236,.82);backdrop-filter:blur(18px);
+    border-bottom:1px solid var(--line-soft);
+  }
+  @media (prefers-color-scheme: dark){ nav.scrolled{background:rgba(18,16,9,.78);} }
+  :root[data-theme="dark"] nav.scrolled{background:rgba(18,16,9,.78);}
+  @media (max-width:720px){ nav,nav.scrolled{padding:18px 22px;} }
+
+  .nav-mark{font-family:var(--serif);font-style:italic;font-size:24px;font-weight:400;text-decoration:none;}
+  .nav-links{display:flex;gap:34px;list-style:none;}
+  .nav-links a{font-family:var(--display);font-size:13px;font-weight:600;text-decoration:none;color:var(--ink-muted);
+    letter-spacing:.3px;position:relative;transition:color .25s;}
+  .nav-links a::after{content:'';position:absolute;left:0;bottom:-6px;width:0;height:1.5px;background:var(--accent);transition:width .3s;}
+  .nav-links a:hover{color:var(--ink);}
+  .nav-links a:hover::after{width:100%;}
+  .nav-right{display:flex;align-items:center;gap:18px;}
+  .nav-cta{padding:10px 22px;border-radius:100px;background:var(--ink);color:var(--bg);font-family:var(--display);
+    font-size:13px;font-weight:600;text-decoration:none;transition:transform .3s;}
+  .nav-cta:hover{transform:translateY(-2px);}
+  @media (max-width:1080px){ .nav-links{display:none;} }
+
+  .nav-burger{display:none;flex-direction:column;gap:5px;width:26px;cursor:pointer;background:none;border:none;padding:6px;}
+  .nav-burger span{height:1.5px;background:var(--ink);width:100%;transition:all .3s;}
+  @media (max-width:1080px){ .nav-burger{display:flex;} }
+
+  .mobile-menu{
+    position:fixed;inset:0;z-index:999;background:var(--bg);
+    display:flex;flex-direction:column;justify-content:center;gap:26px;padding:0 40px;
+    transform:translateY(-100%);transition:transform .45s cubic-bezier(.2,.8,.2,1);
+  }
+  .mobile-menu.open{transform:translateY(0);}
+  .mobile-menu a{font-family:var(--serif);font-style:italic;font-size:34px;text-decoration:none;color:var(--ink);}
+  .mobile-menu .mm-close{position:absolute;top:26px;right:26px;background:none;border:none;font-size:28px;color:var(--ink);cursor:pointer;}
+
+  /* ============ HERO ============ */
+  #hero{min-height:100vh;display:flex;align-items:center;padding:150px 0 96px;}
+  .hero-grid{display:grid;grid-template-columns:1.5fr 1fr;gap:60px;align-items:center;}
+  @media (max-width:1024px){ .hero-grid{grid-template-columns:1fr;gap:40px;} }
+
+  .hero-badge{
+    display:inline-flex;align-items:center;gap:9px;padding:8px 16px 8px 10px;border-radius:100px;
+    border:1px solid var(--line);background:var(--bg-elevated);font-family:var(--display);
+    font-size:12px;font-weight:600;letter-spacing:.4px;color:var(--ink-muted);margin-bottom:30px;opacity:0;
+  }
+  .hero-badge .dot{width:7px;height:7px;border-radius:50%;background:var(--accent2);position:relative;}
+  .hero-badge .dot::after{content:'';position:absolute;inset:-4px;border-radius:50%;border:1.5px solid var(--accent2);animation:ring 2.2s ease-out infinite;}
+  @keyframes ring{0%{transform:scale(.4);opacity:1;}100%{transform:scale(1.9);opacity:0;}}
+
+  .hero-title{font-size:clamp(46px,7.4vw,96px);margin-bottom:22px;opacity:0;}
+  .hero-role{font-family:var(--display);font-size:clamp(16px,2vw,21px);font-weight:600;color:var(--accent);
+    letter-spacing:.2px;margin-bottom:14px;opacity:0;}
+  .hero-desc{max-width:520px;font-size:16.5px;line-height:1.8;color:var(--ink-muted);margin-bottom:38px;opacity:0;}
+  .hero-btns{display:flex;gap:14px;flex-wrap:wrap;opacity:0;margin-bottom:16px;}
+  .hero-meta{font-size:13px;color:var(--ink-faint);opacity:0;font-family:var(--display);letter-spacing:.3px;}
+
+  .hero-side{opacity:0;}
+  .hero-card{
+    background:var(--bg-elevated);border:1px solid var(--line);border-radius:26px;padding:32px;
+    box-shadow:var(--shadow);
+  }
+  .hero-card-label{font-family:var(--display);font-size:11px;font-weight:600;letter-spacing:1.8px;text-transform:uppercase;
+    color:var(--ink-faint);margin-bottom:18px;}
+  .hero-chips{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:24px;}
+  .hero-stat-row{display:flex;justify-content:space-between;align-items:baseline;padding:13px 0;border-top:1px solid var(--line-soft);}
+  .hero-stat-row:first-of-type{border-top:none;}
+  .hero-stat-num{font-family:var(--serif);font-size:26px;color:var(--accent);}
+  .hero-stat-lbl{font-size:12.5px;color:var(--ink-muted);text-align:right;}
+
+  .hero-scroll{position:absolute;bottom:36px;left:48px;display:flex;align-items:center;gap:10px;pointer-events:none;
+    font-family:var(--display);font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink-faint);}
+  .hero-scroll .line{width:1px;height:34px;background:var(--line);position:relative;overflow:hidden;}
+  .hero-scroll .line::after{content:'';position:absolute;top:-100%;left:0;width:100%;height:100%;background:var(--accent);animation:scrolldrop 1.8s ease-in-out infinite;}
+  @keyframes scrolldrop{0%{top:-100%;}100%{top:100%;}}
+  @media (max-width:720px){ .hero-scroll{display:none;} }
+  @media (max-height:760px){ .hero-scroll{display:none;} }
+
+  /* ============ MARQUEE ============ */
+  .marquee-band{
+    background:var(--ink);color:var(--bg);padding:18px 0;overflow:hidden;position:relative;z-index:10;
+    transform:rotate(-1deg);margin:0 -4px;
+  }
+  .marquee-track{display:flex;white-space:nowrap;animation:marquee 32s linear infinite;width:max-content;}
+  .marquee-track span{font-family:var(--display);font-size:17px;font-weight:600;letter-spacing:.4px;padding:0 22px;
+    display:flex;align-items:center;gap:22px;}
+  .marquee-track span::after{content:'—';color:var(--accent);}
+  @keyframes marquee{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+  @media (prefers-reduced-motion: reduce){ .marquee-track{animation:none;} }
+
+  /* ============ STATS BENTO ============ */
+  .bento{display:grid;grid-template-columns:repeat(6,1fr);grid-auto-rows:minmax(150px,auto);gap:16px;}
+  .bento-item{
+    background:var(--bg-elevated);border:1px solid var(--line);border-radius:22px;padding:26px;
+    display:flex;flex-direction:column;justify-content:flex-start;gap:18px;opacity:0;position:relative;overflow:hidden;
+    transition:transform .4s cubic-bezier(.2,.8,.2,1),border-color .4s;
+  }
+  .bento-item:hover{transform:translateY(-6px);border-color:var(--accent);}
+  .bento-item.b-xwide{grid-column:span 4;}
+  .bento-item.b-wide{grid-column:span 3;}
+  .bento-item.b-narrow{grid-column:span 2;}
+  .bento-item.b-full{grid-column:span 6;}
+  .bento-num{font-family:var(--serif);font-size:clamp(30px,3.2vw,44px);color:var(--ink);line-height:1;}
+  .bento-num .u{color:var(--accent);}
+  .bento-lbl{font-size:13px;color:var(--ink-muted);line-height:1.5;font-weight:500;}
+  .bento-tag{font-family:var(--display);font-size:10.5px;font-weight:600;letter-spacing:1.4px;text-transform:uppercase;color:var(--ink-faint);}
+  @media (max-width:900px){
+    .bento{grid-template-columns:repeat(2,1fr);grid-auto-rows:auto;}
+    .bento-item.b-xwide,.bento-item.b-wide,.bento-item.b-narrow,.bento-item.b-full{grid-column:span 2;}
+  }
+
+  /* ============ ABOUT ============ */
+  .about-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:70px;align-items:start;}
+  @media (max-width:900px){ .about-grid{grid-template-columns:1fr;gap:44px;} }
+  .about-copy p{font-size:17px;line-height:1.85;color:var(--ink-muted);margin-bottom:20px;}
+  .about-copy strong{color:var(--ink);font-weight:600;}
+  .about-btns{display:flex;gap:14px;margin-top:30px;flex-wrap:wrap;}
+
+  .about-panel{background:var(--bg-elevated);border:1px solid var(--line);border-radius:26px;padding:8px;box-shadow:var(--shadow);}
+  .about-panel-inner{border:1px solid var(--line-soft);border-radius:20px;padding:30px;}
+  .edu-row{display:flex;gap:16px;padding:18px 0;border-top:1px solid var(--line-soft);}
+  .edu-row:first-child{border-top:none;padding-top:0;}
+  .edu-mark{font-family:var(--serif);font-size:22px;color:var(--accent2);width:48px;flex-shrink:0;}
+  .edu-school{font-family:var(--display);font-weight:600;font-size:14.5px;margin-bottom:3px;}
+  .edu-deg{font-size:13px;color:var(--ink-muted);margin-bottom:3px;line-height:1.5;}
+  .edu-yr{font-size:12px;color:var(--ink-faint);font-family:var(--display);letter-spacing:.3px;}
+
+  /* ============ EXPERTISE ============ */
+  .expertise-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:22px;overflow:hidden;}
+  @media (max-width:900px){ .expertise-grid{grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:560px){ .expertise-grid{grid-template-columns:1fr;} }
+  .exp-card{background:var(--bg-elevated);padding:38px 30px;opacity:0;transition:background .35s;}
+  .exp-card:hover{background:var(--bg-raised);}
+  .exp-index{font-family:var(--serif);font-size:15px;color:var(--accent);margin-bottom:26px;}
+  .exp-title{font-family:var(--display);font-size:18px;font-weight:600;margin-bottom:12px;line-height:1.3;}
+  .exp-desc{font-size:14px;line-height:1.7;color:var(--ink-muted);}
+
+  /* ============ TIMELINE ============ */
+  .timeline{position:relative;max-width:820px;}
+  .timeline::before{content:'';position:absolute;left:9px;top:10px;bottom:10px;width:1px;background:var(--line);}
+  .t-item{position:relative;padding-left:44px;padding-bottom:52px;opacity:0;}
+  .t-item:last-child{padding-bottom:0;}
+  .t-dot{position:absolute;left:0;top:5px;width:19px;height:19px;border-radius:50%;background:var(--bg);
+    border:1.5px solid var(--accent);display:flex;align-items:center;justify-content:center;}
+  .t-dot::after{content:'';width:7px;height:7px;border-radius:50%;background:var(--accent);}
+  .t-item.is-current .t-dot{border-color:var(--accent2);}
+  .t-item.is-current .t-dot::after{background:var(--accent2);}
+  .t-item.is-edu .t-dot{border-color:var(--ink-faint);}
+  .t-item.is-edu .t-dot::after{background:var(--ink-faint);}
+  .t-head{display:flex;justify-content:space-between;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:4px;}
+  .t-role{font-family:var(--display);font-size:18px;font-weight:600;}
+  .t-period{font-family:var(--display);font-size:11.5px;font-weight:600;letter-spacing:.5px;color:var(--ink-faint);
+    border:1px solid var(--line);padding:4px 11px;border-radius:100px;white-space:nowrap;}
+  .t-period.now{color:var(--accent2);border-color:var(--accent2);}
+  .t-org{font-size:14px;color:var(--accent);font-weight:500;margin-bottom:12px;}
+  .t-list{list-style:none;}
+  .t-list li{font-size:14.5px;line-height:1.75;color:var(--ink-muted);padding-left:16px;position:relative;margin-bottom:4px;}
+  .t-list li::before{content:'—';position:absolute;left:0;color:var(--ink-faint);}
+
+  /* ============ SKILLS ============ */
+  .skills-top{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:60px;}
+  .skills-top .chip{padding:11px 20px;font-size:13.5px;}
+  .skill-groups{display:grid;grid-template-columns:repeat(2,1fr);gap:36px 60px;}
+  @media (max-width:780px){ .skill-groups{grid-template-columns:1fr;} }
+  .skill-group{opacity:0;}
+  .skill-group-title{font-family:var(--display);font-size:13px;font-weight:600;letter-spacing:.6px;
+    color:var(--ink);margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--line);}
+  .skill-tags{display:flex;flex-wrap:wrap;gap:9px;}
+  .skill-tags .chip{background:transparent;font-size:12.5px;padding:8px 14px;}
+
+  /* ============ CERTIFICATIONS ============ */
+  .cert-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;}
+  @media (max-width:780px){ .cert-grid{grid-template-columns:1fr;} }
+  .cert-item{display:flex;gap:14px;align-items:flex-start;padding:20px 22px;background:var(--bg-elevated);
+    border:1px solid var(--line);border-radius:16px;opacity:0;}
+  .cert-check{width:22px;height:22px;border-radius:50%;background:var(--accent2-soft);flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;margin-top:2px;}
+  .cert-check svg{width:12px;height:12px;stroke:var(--accent2);}
+  .cert-text{font-size:14px;line-height:1.6;color:var(--ink);}
+
+  /* ============ ACHIEVEMENTS ============ */
+  .ach-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+  @media (max-width:900px){ .ach-grid{grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:520px){ .ach-grid{grid-template-columns:1fr;} }
+  .ach-card{background:var(--bg-elevated);border:1px solid var(--line);border-radius:20px;padding:30px 24px;
+    text-align:center;opacity:0;transition:transform .35s,border-color .35s;}
+  .ach-card:hover{transform:translateY(-6px);border-color:var(--accent);}
+  .ach-num{font-family:var(--serif);font-size:28px;color:var(--accent);margin-bottom:8px;}
+  .ach-title{font-family:var(--display);font-weight:600;font-size:14px;margin-bottom:4px;}
+  .ach-sub{font-size:12.5px;color:var(--ink-muted);}
+
+  /* ============ PUBLICATIONS ============ */
+  .pub-list{display:flex;flex-direction:column;gap:18px;}
+  .pub-card{display:flex;gap:26px;align-items:center;padding:28px 30px;background:var(--bg-elevated);
+    border:1px solid var(--line);border-radius:20px;opacity:0;transition:border-color .3s,transform .3s;
+    text-decoration:none;color:inherit;}
+  .pub-card:hover{border-color:var(--accent);transform:translateX(6px);}
+  .pub-arrow{width:20px;height:20px;flex-shrink:0;stroke:var(--ink-faint);transition:stroke .3s,transform .3s;}
+  .pub-card:hover .pub-arrow{stroke:var(--accent);transform:translate(3px,-3px);}
+  .pub-tag{font-family:var(--display);font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;
+    color:var(--accent);background:var(--accent-soft);padding:7px 13px;border-radius:100px;white-space:nowrap;}
+  .pub-title{font-family:var(--display);font-size:16px;font-weight:600;line-height:1.5;margin-bottom:6px;}
+  .pub-journal{font-size:13px;color:var(--accent2);font-weight:600;margin-bottom:4px;}
+  .pub-role{font-size:13px;color:var(--ink-muted);}
+
+  /* ============ LEADERSHIP ============ */
+  .leader-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+  @media (max-width:780px){ .leader-grid{grid-template-columns:1fr;} }
+  .leader-card{padding:26px;background:var(--bg-elevated);border:1px solid var(--line);border-radius:18px;opacity:0;
+    transition:transform .35s;}
+  .leader-card:hover{transform:translateY(-5px);}
+  .leader-title{font-family:var(--display);font-weight:600;font-size:14.5px;margin-bottom:6px;line-height:1.4;}
+  .leader-org{font-size:12.5px;color:var(--ink-muted);margin-bottom:4px;}
+  .leader-period{font-size:11.5px;color:var(--ink-faint);font-family:var(--display);}
+
+  /* ============ LANGUAGES strip ============ */
+  .lang-strip{display:flex;gap:40px;flex-wrap:wrap;}
+  .lang-item{display:flex;flex-direction:column;gap:4px;}
+  .lang-name{font-family:var(--display);font-weight:600;font-size:15px;}
+  .lang-level{font-size:12.5px;color:var(--ink-muted);}
+
+  /* ============ CONTACT ============ */
+  #contact{background:var(--invert-bg);color:var(--invert-ink);}
+  #contact .eyebrow{color:var(--invert-accent2);}
+  #contact .eyebrow::before{background:var(--invert-accent2);}
+  #contact .section-title{color:var(--invert-ink);}
+  #contact .section-desc{color:var(--invert-muted);}
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:start;}
+  @media (max-width:900px){ .contact-grid{grid-template-columns:1fr;gap:44px;} }
+  .contact-links{display:flex;flex-direction:column;gap:2px;margin-top:36px;}
+  .contact-link{display:flex;align-items:center;gap:16px;padding:20px 6px;text-decoration:none;color:var(--invert-ink);
+    border-top:1px solid var(--invert-line);transition:padding-left .3s,color .3s;}
+  .contact-link:first-child{border-top:none;}
+  .contact-link:hover{padding-left:14px;color:var(--invert-accent);}
+  .contact-link svg{width:18px;height:18px;stroke:var(--invert-accent2);flex-shrink:0;}
+  .cl-label{font-size:11px;color:var(--invert-faint);text-transform:uppercase;letter-spacing:1.2px;font-family:var(--display);display:block;margin-bottom:2px;}
+  .cl-value{font-size:15.5px;font-weight:500;}
+
+  .contact-form{background:rgba(246,243,236,.05);border:1px solid var(--invert-line);border-radius:24px;
+    padding:38px;opacity:0;}
+  .form-title{font-family:var(--display);font-size:19px;font-weight:600;margin-bottom:26px;color:var(--invert-ink);}
+  .f-group{margin-bottom:18px;}
+  .f-group label{display:block;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;
+    color:var(--invert-faint);margin-bottom:8px;font-family:var(--display);}
+  .f-group input,.f-group textarea{
+    width:100%;padding:13px 16px;background:var(--invert-field-bg);border:1px solid var(--invert-field-border);
+    border-radius:10px;color:var(--invert-ink);font-family:var(--body);font-size:14px;outline:none;resize:vertical;
+    transition:border-color .3s,background .3s;
+  }
+  .f-group input::placeholder,.f-group textarea::placeholder{color:var(--invert-placeholder);}
+  .f-group input:focus,.f-group textarea:focus{border-color:var(--invert-accent2);background:var(--invert-field-bg-focus);}
+  .f-group textarea{min-height:110px;}
+  .f-submit{width:100%;padding:15px;background:var(--invert-accent);border:none;border-radius:10px;color:#fff;
+    font-family:var(--display);font-size:14.5px;font-weight:700;cursor:pointer;transition:transform .3s,opacity .3s;letter-spacing:.3px;}
+  .f-submit:hover{transform:translateY(-2px);}
+  .f-hint{font-size:11.5px;color:var(--invert-faint);margin-top:10px;line-height:1.5;}
+
+  footer{border-top:1px solid var(--invert-line);padding:34px 0;text-align:center;background:var(--invert-bg);}
+  footer p{font-size:12.5px;color:var(--invert-faint);font-family:var(--display);letter-spacing:.2px;}
+  footer strong{color:var(--invert-accent);}
+
+  .reveal{opacity:0;transform:translateY(26px);}
+
+  /* ============ QUICK-CONTACT MODAL ============ */
+  .modal-overlay{
+    position:fixed;inset:0;z-index:1100;background:rgba(17,14,10,.6);backdrop-filter:blur(6px);
+    display:flex;align-items:center;justify-content:center;padding:24px;
+    opacity:0;pointer-events:none;transition:opacity .3s ease;
+  }
+  .modal-overlay.open{opacity:1;pointer-events:auto;}
+  .modal-box{
+    width:100%;max-width:440px;background:var(--bg-elevated);border:1px solid var(--line);border-radius:24px;
+    padding:36px;box-shadow:var(--shadow);position:relative;transform:translateY(16px);transition:transform .35s cubic-bezier(.2,.8,.2,1);
+  }
+  .modal-overlay.open .modal-box{transform:translateY(0);}
+  .modal-close{position:absolute;top:18px;right:20px;background:none;border:none;font-size:18px;color:var(--ink-muted);cursor:pointer;}
+  .modal-close:hover{color:var(--ink);}
+  .modal-box .form-title{color:var(--ink);}
+  .modal-box .f-group label{color:var(--ink-faint);}
+  .modal-box .f-group input,.modal-box .f-group textarea{
+    background:var(--bg-raised);border:1px solid var(--line);color:var(--ink);
+  }
+  .modal-box .f-group input::placeholder,.modal-box .f-group textarea::placeholder{color:var(--ink-faint);}
+  .modal-box .f-group input:focus,.modal-box .f-group textarea:focus{border-color:var(--accent);background:var(--bg-elevated);}
+  .modal-box .f-hint{color:var(--ink-faint);}
+  .modal-box .f-submit{background:var(--accent);}
+
+  /* ============ FINE-GRAINED RESPONSIVE PASS ============ */
+  @media (max-width:640px){
+    .hero-btns{flex-direction:column;align-items:stretch;}
+    .hero-btns .btn{justify-content:center;}
+    .about-btns{flex-direction:column;align-items:stretch;}
+    .about-btns .btn{justify-content:center;}
+    .hero-card{padding:24px;}
+    .about-panel-inner{padding:22px;}
+    .contact-form{padding:26px;}
+    .modal-box{padding:28px;}
+    .pub-card{flex-direction:column;gap:14px;}
+    .pub-card:hover{transform:none;}
+    .marquee-track span{font-size:14px;padding:0 16px;}
+    .section-pad{padding:64px 0;}
+    #hero{padding:130px 0 70px;}
+    .hero-badge{margin-bottom:22px;}
+    .nav-cta{padding:9px 16px;font-size:12px;}
+  }
+  @media (max-width:420px){
+    .nav-mark{font-size:19px;}
+    .hero-title{font-size:40px;}
+    .bento-item{padding:20px;}
+  }
+  @media (max-width:900px){ .lang-strip{gap:24px;} }
+</style>
+</head>
+<body>
+
+<div class="grain"></div>
+<canvas id="bg-canvas"></canvas>
+<div class="cursor-dot" id="cursor-dot"></div>
+<div class="cursor-ring" id="cursor-ring"></div>
+
+<!-- ============ NAV ============ -->
+<nav id="navbar">
+  <a href="#hero" class="nav-mark">Chetan Choudhary</a>
+  <ul class="nav-links">
+    <li><a href="#expertise">Expertise</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#achievements">Achievements</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="nav-cta js-open-contact-modal" id="navCtaBtn" style="border:none;cursor:pointer;">Get in Touch</button>
+    <button class="nav-burger" id="burgerBtn" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mm-close" id="mmClose" aria-label="Close menu">✕</button>
+  <a href="#expertise">Expertise</a>
+  <a href="#experience">Experience</a>
+  <a href="#skills">Skills</a>
+  <a href="#achievements">Achievements</a>
+  <a href="#publications">Research</a>
+  <a href="#leadership">Leadership</a>
+  <a href="#contact">Contact</a>
+</div>
+
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal-box">
+    <button class="modal-close" id="modalClose" aria-label="Close">✕</button>
+    <h3 class="form-title">Get in Touch</h3>
+    <form id="quickContactForm">
+      <div class="f-group"><label>Your Name</label><input type="text" id="qName" placeholder="Your full name" required /></div>
+      <div class="f-group"><label>Email Address</label><input type="email" id="qEmail" placeholder="you@company.com" required /></div>
+      <div class="f-group"><label>Message</label><textarea id="qMessage" placeholder="Tell me a bit about it..." required></textarea></div>
+      <button type="submit" class="f-submit">Send Message →</button>
+      <p class="f-hint">Opens your email client with this pre-filled, addressed to choudhary2027@gmail.com.</p>
+    </form>
+  </div>
+</div>
+
+<!-- ============ HERO ============ -->
+<section id="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <span class="hero-badge reveal"><span class="dot"></span> Currently: Management Trainee, SCM — Jupiter Hospital</span>
+        <h1 class="hero-title display-title reveal">Dr. Chetan<br /><em>Choudhary</em></h1>
+        <p class="hero-role reveal">Supply Chain · Optimization &amp; Analytics · Vendor Management</p>
+        <p class="hero-desc reveal">I bring clinical depth and analytical rigor to supply chain and product strategy — turning vendor relationships, market data, and healthcare insight into decisions that hold up under scrutiny.</p>
+        <div class="hero-btns reveal">
+          <a href="mailto:choudhary2027@gmail.com" class="btn btn-solid">Email Me <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></a>
+          <a href="https://www.linkedin.com/in/drchetanchoudhary-pharma-pmt" target="_blank" rel="noopener" class="btn btn-outline">Connect on LinkedIn <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></a>
+        </div>
+        <p class="hero-meta reveal">MBA — IIM Bodh Gaya &nbsp;·&nbsp; PharmD &nbsp;·&nbsp; CAT 97th Percentile &nbsp;·&nbsp; Lean Six Sigma Green Belt</p>
+      </div>
+
+      <div class="hero-side reveal">
+        <div class="hero-card">
+          <div class="hero-card-label">Top Skills</div>
+          <div class="hero-chips">
+            <span class="chip accent">Strategic Sourcing</span>
+            <span class="chip accent">Demand Planning</span>
+            <span class="chip accent">Vendor Management</span>
+          </div>
+          <div class="hero-stat-row">
+            <span class="hero-stat-num">23+</span>
+            <span class="hero-stat-lbl">SKUs analyzed & prioritized<br/>using IQVIA / CMARC data</span>
+          </div>
+          <div class="hero-stat-row">
+            <span class="hero-stat-num">2×</span>
+            <span class="hero-stat-lbl">Published research author,<br/>peer-reviewed clinical work</span>
+          </div>
+          <div class="hero-stat-row">
+            <span class="hero-stat-num">6</span>
+            <span class="hero-stat-lbl">High-growth states identified<br/>via PMPR market metrics</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-scroll"><span>Scroll</span><span class="line"></span></div>
+</section>
+
+<!-- ============ MARQUEE ============ -->
+<div class="marquee-band">
+  <div class="marquee-track">
+    <span>Strategic Sourcing</span><span>Demand Planning</span><span>Vendor Management</span><span>Portfolio Strategy</span><span>Market Intelligence</span><span>Healthcare Analytics</span>
+    <span>Strategic Sourcing</span><span>Demand Planning</span><span>Vendor Management</span><span>Portfolio Strategy</span><span>Market Intelligence</span><span>Healthcare Analytics</span>
+  </div>
+</div>
+
+<!-- ============ STATS BENTO ============ -->
+<section id="stats" class="section-pad">
+  <div class="wrap">
+    <div class="bento">
+      <div class="bento-item b-xwide">
+        <span class="bento-tag">Entrance Exam</span>
+        <div>
+          <div class="bento-num"><span data-count="97">0</span><span class="u">th</span> percentile</div>
+          <div class="bento-lbl">CAT — top 3% nationally, opening the door to IIM Bodh Gaya</div>
+        </div>
+      </div>
+      <div class="bento-item b-narrow">
+        <span class="bento-tag">Dual Credential</span>
+        <div class="bento-num">PharmD <span class="u">+</span> MBA</div>
+      </div>
+      <div class="bento-item b-narrow">
+        <span class="bento-tag">Process Excellence</span>
+        <div class="bento-num">Lean Six Sigma <span class="u">Green Belt</span></div>
+      </div>
+      <div class="bento-item b-narrow">
+        <span class="bento-tag">Research</span>
+        <div>
+          <div class="bento-num"><span data-count="2">0</span><span class="u">×</span></div>
+          <div class="bento-lbl">Published, peer-reviewed clinical &amp; policy research</div>
+        </div>
+      </div>
+      <div class="bento-item b-narrow">
+        <span class="bento-tag">Ozone Pharma Internship</span>
+        <div class="bento-num"><span data-count="23">0</span><span class="u">+</span> SKUs portfolio-prioritized</div>
+      </div>
+      <div class="bento-item b-full">
+        <span class="bento-tag">Automation @ Jupiter Hospital</span>
+        <div>
+          <div class="bento-num"><span data-count="4">0</span><span class="u">+</span> workflows automated</div>
+          <div class="bento-lbl">APF &amp; MRF tracking, Open PO email alerts, Oracle-based procurement, and CS generation</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section id="about" class="section-pad">
+  <div class="wrap">
+    <span class="eyebrow reveal">About</span>
+    <div class="about-grid">
+      <div class="about-copy">
+        <h2 class="section-title reveal" style="max-width:640px;">At the intersection of <em style="font-family:var(--serif);font-style:italic;color:var(--accent);">supply chain, strategy,</em> and healthcare.</h2>
+        <p class="reveal">Currently a <strong>Management Trainee in Supply Chain Management at Vishesh Jupiter Hospital, Indore</strong>, focused on procurement efficiency, inventory optimization, and vendor relationship management that keeps patient care uninterrupted.</p>
+        <p class="reveal">Backed by an <strong>MBA from IIM Bodh Gaya</strong> and a <strong>PharmD</strong>, I connect clinical grounding with strategic and analytical thinking — a combination that shows up in how I read a vendor contract, a demand forecast, or a market dataset.</p>
+        <p class="reveal">Earlier, as a Product Management Intern at Ozone Pharmaceuticals, I used <strong>IQVIA and CMARC data</strong> to prioritize a 23+ SKU portfolio and shape go-to-market strategy across six high-growth states.</p>
+        <p class="reveal">Open to roles in <strong>supply chain strategy, vendor management, and healthcare-adjacent product or consulting</strong> work.</p>
+        <div class="about-btns reveal">
+          <button type="button" class="btn btn-solid js-open-contact-modal">Start a Conversation</button>
+        </div>
+      </div>
+      <div class="about-panel reveal">
+        <div class="about-panel-inner">
+          <div class="hero-card-label" style="margin-bottom:22px;">Education</div>
+          <div class="edu-row">
+            <span class="edu-mark">01</span>
+            <div>
+              <div class="edu-school">Indian Institute of Management Bodh Gaya</div>
+              <div class="edu-deg">Master of Business Administration — MBA</div>
+              <div class="edu-yr">Jul 2024 — Apr 2026</div>
+            </div>
+          </div>
+          <div class="edu-row">
+            <span class="edu-mark">02</span>
+            <div>
+              <div class="edu-school">Geetanjali University</div>
+              <div class="edu-deg">Doctor of Pharmacy (PharmD) — Clinical, Hospital &amp; Managed Care Pharmacy</div>
+              <div class="edu-yr">2018 — 2024</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EXPERTISE ============ -->
+<section id="expertise" class="section-pad">
+  <div class="wrap">
+    <span class="eyebrow reveal">What I Bring</span>
+    <h2 class="section-title reveal">Four lenses,<br/>one <em style="font-family:var(--serif);font-style:italic;color:var(--accent);">operating model.</em></h2>
+    <p class="section-desc reveal" style="margin-bottom:54px;">A blend of clinical grounding, supply chain execution, and market intelligence that bridges healthcare and business decisions.</p>
+
+    <div class="expertise-grid">
+      <div class="exp-card reveal">
+        <div class="exp-index">01</div>
+        <h3 class="exp-title">Supply Chain &amp; Automation</h3>
+        <p class="exp-desc">Strategic sourcing, vendor negotiations, and procurement efficiency — backed by automated APF/MRF tracking, Open PO alerts, Oracle workflows, and CS generation.</p>
+      </div>
+      <div class="exp-card reveal">
+        <div class="exp-index">02</div>
+        <h3 class="exp-title">Demand &amp; Portfolio Strategy</h3>
+        <p class="exp-desc">SKU prioritization and market-expansion analysis using IQVIA, CMARC, and PMPR metrics to guide demand planning.</p>
+      </div>
+      <div class="exp-card reveal">
+        <div class="exp-index">03</div>
+        <h3 class="exp-title">Healthcare &amp; Clinical Insight</h3>
+        <p class="exp-desc">PharmD background with hospital clerkship and clinical-research experience behind every operational decision.</p>
+      </div>
+      <div class="exp-card reveal">
+        <div class="exp-index">04</div>
+        <h3 class="exp-title">Digital &amp; Growth Strategy</h3>
+        <p class="exp-desc">SEO-led launches, digital-detailing models, and competitive positioning built during pharma product management work.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EXPERIENCE ============ -->
+<section id="experience" class="section-pad" style="background:var(--bg-raised);">
+  <div class="wrap">
+    <span class="eyebrow reveal">Career</span>
+    <h2 class="section-title reveal">Experience &amp;<br/><em style="font-family:var(--serif);font-style:italic;color:var(--accent);">Education Timeline</em></h2>
+
+    <div class="timeline" style="margin-top:54px;">
+      <div class="t-item is-current reveal">
+        <div class="t-dot"></div>
+        <div class="t-head"><span class="t-role">Management Trainee, Supply Chain Management</span><span class="t-period now">May 2026 — Present</span></div>
+        <div class="t-org">Vishesh Jupiter Hospital, Indore</div>
+        <ul class="t-list">
+          <li>Driving procurement efficiency and inventory optimization across the hospital supply chain</li>
+          <li>Built automation workflows for APF &amp; MRF tracking, cutting manual follow-up and turnaround time</li>
+          <li>Automated email alerts for Open Purchase Orders (Open PO), speeding up vendor closure</li>
+          <li>Streamlined Oracle-based procurement &amp; PO workflows for real-time visibility</li>
+          <li>Automated CS (Comparative Statement) generation for faster vendor evaluation and sign-off</li>
+          <li>Managing vendor relationships to support uninterrupted patient care</li>
+        </ul>
+      </div>
+
+      <div class="t-item reveal">
+        <div class="t-dot"></div>
+        <div class="t-head"><span class="t-role">Marketing Live Project, MSME Startup</span><span class="t-period">Sep — Nov 2025</span></div>
+        <div class="t-org">Decoral Studio</div>
+        <ul class="t-list">
+          <li>Ran end-to-end outbound outreach and lead-pipeline management</li>
+          <li>Tracked conversions and coordinated deal closures</li>
+        </ul>
+      </div>
+
+      <div class="t-item reveal">
+        <div class="t-dot"></div>
+        <div class="t-head"><span class="t-role">Product Management Intern</span><span class="t-period">Apr — Jul 2025</span></div>
+        <div class="t-org">Ozone Pharmaceuticals Limited, Delhi</div>
+        <ul class="t-list">
+          <li>Analyzed 23+ SKUs with IQVIA &amp; CMARC data to build a 3-tier portfolio prioritization model</li>
+          <li>Identified 6 high-growth states via PMPR metrics; recommended expansion into 3 key markets</li>
+          <li>Benchmarked pricing against 5 competitors and proposed bundling &amp; LBL strategies</li>
+          <li>Led an SEO-first launch strategy with TrueMeds tie-ups and an MR-lite engagement model</li>
+          <li>Introduced WhatsApp-based digital detailing to replace field visits in public hospital zones</li>
+        </ul>
+      </div>
+
+      <div class="t-item reveal">
+        <div class="t-dot"></div>
+        <div class="t-head"><span class="t-role">Management Trainee, Luxury Real Estate</span><span class="t-period">Mar — Apr 2025</span></div>
+        <div class="t-org">Sriraj Infra, Ahmedabad</div>
+        <ul class="t-list">
+          <li>Led brand activation and business development initiatives</li>
+          <li>Managed 15+ client interactions and streamlined the CRM pipeline</li>
+          <li>Ran SEO campaigns that lifted organic reach by roughly 25%</li>
+        </ul>
+      </div>
+
+      <div class="t-item reveal">
+        <div class="t-dot"></div>
+        <div class="t-head"><span class="t-role">Student Internship, Clinical Pharmacy</span><span class="t-period">Aug 2023 — Jul 2024</span></div>
+        <div class="t-org">Geetanjali Hospital, Udaipur</div>
+        <ul class="t-list">
+          <li>Collaborated with healthcare providers to optimize patient medication therapy</li>
+          <li>Conducted medication reviews and accurate medication reconciliation</li>
+          <li>Provided patient counseling and monitored for potential drug interactions</li>
+        </ul>
+      </div>
+
+      <div class="t-item reveal">
+        <div class="t-dot"></div>
+        <div class="t-head"><span class="t-role">Hospital Clerkship</span><span class="t-period">Dec 2022 — May 2023</span></div>
+        <div class="t-org">Geetanjali Medical College and Hospital, Udaipur</div>
+        <ul class="t-list">
+          <li>Assessed quality of life in Generalized Anxiety Disorder patients using the WHOQOL-BREF scale</li>
+        </ul>
+      </div>
+
+      <div class="t-item is-edu reveal">
+        <div class="t-dot"></div>
+        <div class="t-head"><span class="t-role">MBA — Indian Institute of Management Bodh Gaya</span><span class="t-period">2024 — 2026</span></div>
+        <div class="t-org">Bodh Gaya, Bihar</div>
+      </div>
+
+      <div class="t-item is-edu reveal">
+        <div class="t-dot"></div>
+        <div class="t-head"><span class="t-role">PharmD — Geetanjali University</span><span class="t-period">2018 — 2024</span></div>
+        <div class="t-org">Clinical, Hospital &amp; Managed Care Pharmacy · Udaipur</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SKILLS ============ -->
+<section id="skills" class="section-pad">
+  <div class="wrap">
+    <span class="eyebrow reveal">Capabilities</span>
+    <h2 class="section-title reveal">Skills &amp;<br/><em style="font-family:var(--serif);font-style:italic;color:var(--accent);">Certifications</em></h2>
+
+    <div class="skills-top reveal" style="margin-top:44px;">
+      <span class="chip accent">Strategic Sourcing</span>
+      <span class="chip accent">Demand Planning</span>
+      <span class="chip accent">Vendor Management</span>
+    </div>
+
+    <div class="skill-groups">
+      <div class="skill-group reveal">
+        <div class="skill-group-title">Supply Chain &amp; Operations</div>
+        <div class="skill-tags">
+          <span class="chip">Procurement</span>
+          <span class="chip">Inventory Optimization</span>
+          <span class="chip">Strategic Sourcing</span>
+          <span class="chip">Demand Planning</span>
+          <span class="chip">Vendor Management</span>
+          <span class="chip">Lean Six Sigma</span>
+          <span class="chip">Process Automation</span>
+          <span class="chip">Oracle ERP Workflows</span>
+        </div>
+      </div>
+      <div class="skill-group reveal">
+        <div class="skill-group-title">Analytics &amp; Strategy</div>
+        <div class="skill-tags">
+          <span class="chip">IQVIA &amp; CMARC Data Analysis</span>
+          <span class="chip">Portfolio Prioritization</span>
+          <span class="chip">PMPR Market Metrics</span>
+          <span class="chip">Competitive Benchmarking</span>
+        </div>
+      </div>
+      <div class="skill-group reveal">
+        <div class="skill-group-title">Healthcare &amp; Clinical</div>
+        <div class="skill-tags">
+          <span class="chip">Clinical Pharmacy</span>
+          <span class="chip">Antibiotic Stewardship</span>
+          <span class="chip">Good Clinical Practice</span>
+          <span class="chip">Medication Therapy Management</span>
+        </div>
+      </div>
+      <div class="skill-group reveal">
+        <div class="skill-group-title">Business &amp; Leadership</div>
+        <div class="skill-tags">
+          <span class="chip">MBA Strategy</span>
+          <span class="chip">Stakeholder Management</span>
+          <span class="chip">Brand &amp; Digital Strategy</span>
+          <span class="chip">Cross-functional Collaboration</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:64px;">
+      <div class="hero-card-label reveal" style="margin-bottom:20px;">Certifications</div>
+      <div class="cert-grid">
+        <div class="cert-item reveal"><span class="cert-check"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span class="cert-text">Basics of Microbiology &amp; Antimicrobial Resistance: Gram-negative Bacteria</span></div>
+        <div class="cert-item reveal"><span class="cert-check"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span class="cert-text">Antibiotic Stewardship</span></div>
+        <div class="cert-item reveal"><span class="cert-check"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span class="cert-text">Good Clinical Practice — Professional Certification Scheme</span></div>
+        <div class="cert-item reveal"><span class="cert-check"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span class="cert-text">Lean Six Sigma Green Belt</span></div>
+        <div class="cert-item reveal" style="grid-column:1/-1;"><span class="cert-check"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span class="cert-text">Introduction to the Principles and Practice of Clinical Research (2022–2023)</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ACHIEVEMENTS ============ -->
+<section id="achievements" class="section-pad">
+  <div class="wrap">
+    <span class="eyebrow reveal">Recognition</span>
+    <h2 class="section-title reveal">Achievements</h2>
+    <div class="ach-grid" style="margin-top:44px;">
+      <div class="ach-card reveal">
+        <div class="ach-num">3rd Rank</div>
+        <div class="ach-title">Pharm.D Batch</div>
+        <div class="ach-sub">Geetanjali Institute</div>
+      </div>
+      <div class="ach-card reveal">
+        <div class="ach-num">Top 13</div>
+        <div class="ach-title">XLRI SAPPHIRE</div>
+        <div class="ach-sub">of 260 competing teams</div>
+      </div>
+      <div class="ach-card reveal">
+        <div class="ach-num">2×</div>
+        <div class="ach-title">Published Author</div>
+        <div class="ach-sub">Lead investigator, IJOCP</div>
+      </div>
+      <div class="ach-card reveal">
+        <div class="ach-num">'B' Certificate</div>
+        <div class="ach-title">NCC Cadet</div>
+        <div class="ach-sub">National Cadet Corps</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PUBLICATIONS ============ -->
+<section id="publications" class="section-pad" style="background:var(--bg-raised);">
+  <div class="wrap">
+    <span class="eyebrow reveal">Research</span>
+    <h2 class="section-title reveal">Publications</h2>
+
+    <div class="pub-list" style="margin-top:44px;">
+      <a href="https://ijocp.com/index.php/IJOCP/article/view/144" target="_blank" rel="noopener" class="pub-card reveal">
+        <span class="pub-tag">Clinical</span>
+        <div style="flex:1;">
+          <div class="pub-title">Longitudinal Effects of Escitalopram on Quality of Life in Drug-Naïve Generalized Anxiety Disorder Patients: A Six-Month Prospective Study</div>
+          <div class="pub-journal">Indian Journal of Clinical Psychiatry (IJOCP)</div>
+          <div class="pub-role">Lead Investigator &amp; Author · WHOQOL-BREF scale-based assessment</div>
+        </div>
+        <svg class="pub-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg>
+      </a>
+      <a href="https://jpc.tums.ac.ir/index.php/jpc/article/view/690" target="_blank" rel="noopener" class="pub-card reveal">
+        <span class="pub-tag">Health Policy</span>
+        <div style="flex:1;">
+          <div class="pub-title">Digital Therapeutics: Catalyzing Personalized Medicine and the Pursuit of Equitable Healthcare</div>
+          <div class="pub-journal">Journal of Pharmaceutical Care</div>
+          <div class="pub-role">Author · Exploring digital health innovation &amp; access</div>
+        </div>
+        <svg class="pub-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LEADERSHIP ============ -->
+<section id="leadership" class="section-pad">
+  <div class="wrap">
+    <span class="eyebrow reveal">Involvement</span>
+    <h2 class="section-title reveal">Leadership &amp; Positions</h2>
+
+    <div class="leader-grid" style="margin-top:44px;">
+      <div class="leader-card reveal">
+        <div class="leader-title">Alumni Relations Committee Representative</div>
+        <div class="leader-org">IIM Bodh Gaya</div>
+        <div class="leader-period">Aug 2024 — Mar 2026</div>
+      </div>
+      <div class="leader-card reveal">
+        <div class="leader-title">Member, STRACON</div>
+        <div class="leader-org">The Strategy &amp; Consulting Club, IIM Bodh Gaya</div>
+        <div class="leader-period">Oct 2024 — Mar 2026</div>
+      </div>
+      <div class="leader-card reveal">
+        <div class="leader-title">Member, MasQ</div>
+        <div class="leader-org">Marketing Club of IIM Bodh Gaya</div>
+        <div class="leader-period">Oct 2024 — Mar 2026</div>
+      </div>
+    </div>
+
+    <div style="margin-top:56px;" class="reveal">
+      <div class="hero-card-label" style="margin-bottom:18px;">Languages</div>
+      <div class="lang-strip">
+        <div class="lang-item"><span class="lang-name">English</span><span class="lang-level">Professional Working Proficiency</span></div>
+        <div class="lang-item"><span class="lang-name">Hindi</span><span class="lang-level">Professional Working Proficiency</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section id="contact" class="section-pad">
+  <div class="wrap">
+    <span class="eyebrow reveal">Contact</span>
+    <div class="contact-grid">
+      <div>
+        <h2 class="section-title reveal" style="color:var(--bg);">Let's build<br/><em style="font-family:var(--serif);font-style:italic;color:var(--accent);">something great.</em></h2>
+        <p class="section-desc reveal">Open to supply chain strategy, vendor management, and healthcare-adjacent product or consulting opportunities.</p>
+
+        <div class="contact-links reveal">
+          <a href="mailto:choudhary2027@gmail.com" class="contact-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+            <div><span class="cl-label">Email</span><span class="cl-value">choudhary2027@gmail.com</span></div>
+          </a>
+          <a href="https://www.linkedin.com/in/drchetanchoudhary-pharma-pmt" target="_blank" rel="noopener" class="contact-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/><path d="M10 9v12M10 13a4 4 0 0 1 8 0v8"/></svg>
+            <div><span class="cl-label">LinkedIn</span><span class="cl-value">/in/drchetanchoudhary-pharma-pmt</span></div>
+          </a>
+          <div class="contact-link" style="cursor:default;">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M12 22s8-7.5 8-13a8 8 0 1 0-16 0c0 5.5 8 13 8 13z"/><circle cx="12" cy="9" r="3"/></svg>
+            <div><span class="cl-label">Based In</span><span class="cl-value">Greater Jaipur Area · Currently in Indore</span></div>
+          </div>
+        </div>
+      </div>
+
+      <form class="contact-form reveal" id="contactForm">
+        <h3 class="form-title">Send a Message</h3>
+        <div class="f-group"><label>Your Name</label><input type="text" id="fName" placeholder="Your full name" required /></div>
+        <div class="f-group"><label>Email Address</label><input type="email" id="fEmail" placeholder="you@company.com" required /></div>
+        <div class="f-group"><label>Subject</label><input type="text" id="fSubject" placeholder="Opportunity / collaboration" /></div>
+        <div class="f-group"><label>Message</label><textarea id="fMessage" placeholder="Tell me a bit about it..." required></textarea></div>
+        <button type="submit" class="f-submit">Send Message →</button>
+        <p class="f-hint">Opens your email client with this message pre-filled, addressed to choudhary2027@gmail.com.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© Dr. Chetan Choudhary 2026 · MBA, IIM Bodh Gaya · Supply Chain &amp; Strategy</p>
+</footer>
+
+<script>
+// ── Theme: respect viewer's data-theme if the hosting shell sets it; else system preference drives CSS already.
+(function(){ try{ /* no-op, tokens handle it via CSS */ }catch(e){} })();
+
+// ── Reduced motion flag ──────────────────────────────────────
+const REDUCE_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const FINE_POINTER = window.matchMedia('(pointer: fine)').matches;
+
+// ── Custom cursor ──────────────────────────────────────────────
+if (FINE_POINTER && !REDUCE_MOTION) {
+  const dot = document.getElementById('cursor-dot');
+  const ring = document.getElementById('cursor-ring');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove', e=>{
+    mx=e.clientX; my=e.clientY;
+    dot.style.left = mx-3+'px'; dot.style.top = my-3+'px';
+  });
+  (function loop(){ rx+=(mx-rx)*.14; ry+=(my-ry)*.14; ring.style.left=rx-16+'px'; ring.style.top=ry-16+'px'; requestAnimationFrame(loop); })();
+  document.querySelectorAll('a, button, .bento-item, .exp-card, .leader-card, .pub-card').forEach(el=>{
+    el.addEventListener('mouseenter', ()=>{ ring.style.width='52px'; ring.style.height='52px'; });
+    el.addEventListener('mouseleave', ()=>{ ring.style.width='32px'; ring.style.height='32px'; });
+  });
+} else {
+  document.getElementById('cursor-dot').style.display='none';
+  document.getElementById('cursor-ring').style.display='none';
+}
+
+// ── Nav scroll state ──────────────────────────────────────────
+const nav = document.getElementById('navbar');
+window.addEventListener('scroll', ()=>{ nav.classList.toggle('scrolled', window.scrollY>40); }, {passive:true});
+
+// ── Mobile menu ─────────────────────────────────────────────────
+const mm = document.getElementById('mobileMenu');
+document.getElementById('burgerBtn').addEventListener('click', ()=> mm.classList.add('open'));
+document.getElementById('mmClose').addEventListener('click', ()=> mm.classList.remove('open'));
+mm.querySelectorAll('a').forEach(a=> a.addEventListener('click', ()=> mm.classList.remove('open')));
+
+// ── Smooth anchor scroll ────────────────────────────────────────
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click', e=>{
+    const id = a.getAttribute('href');
+    if (id.length>1 && document.querySelector(id)) {
+      e.preventDefault();
+      document.querySelector(id).scrollIntoView({behavior: REDUCE_MOTION ? 'auto' : 'smooth'});
+    }
+  });
+});
+
+// ── Contact form → mailto ───────────────────────────────────────
+document.getElementById('contactForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  const name = document.getElementById('fName').value.trim();
+  const email = document.getElementById('fEmail').value.trim();
+  const subject = document.getElementById('fSubject').value.trim() || 'Portfolio inquiry';
+  const message = document.getElementById('fMessage').value.trim();
+  const body = `From: ${name} (${email})\n\n${message}`;
+  const mailto = `mailto:choudhary2027@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  window.location.href = mailto;
+});
+
+// ── Quick-contact modal (nav "Get in Touch") ────────────────────
+const modalOverlay = document.getElementById('modalOverlay');
+function openModal(){ modalOverlay.classList.add('open'); document.body.style.overflow='hidden'; }
+function closeModal(){ modalOverlay.classList.remove('open'); document.body.style.overflow=''; }
+document.querySelectorAll('.js-open-contact-modal').forEach(el=>{
+  el.addEventListener('click', e=>{ e.preventDefault(); openModal(); });
+});
+document.getElementById('modalClose').addEventListener('click', closeModal);
+modalOverlay.addEventListener('click', e=>{ if (e.target === modalOverlay) closeModal(); });
+document.addEventListener('keydown', e=>{ if (e.key === 'Escape') closeModal(); });
+
+document.getElementById('quickContactForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  const name = document.getElementById('qName').value.trim();
+  const email = document.getElementById('qEmail').value.trim();
+  const message = document.getElementById('qMessage').value.trim();
+  const body = `From: ${name} (${email})\n\n${message}`;
+  const mailto = `mailto:choudhary2027@gmail.com?subject=${encodeURIComponent('Portfolio inquiry from '+name)}&body=${encodeURIComponent(body)}`;
+  window.location.href = mailto;
+  setTimeout(closeModal, 400);
+});
+
+// ── GSAP reveal animations (with fallback if the CDN is blocked) ──
+const GSAP_OK = (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined');
+if (REDUCE_MOTION || !GSAP_OK) {
+  document.querySelectorAll('.reveal').forEach(el=>{ el.style.opacity=1; el.style.transform='none'; });
+  document.querySelectorAll('.bento-item').forEach(el=>{ el.style.opacity=1; el.style.transform='none'; });
+} else {
+  gsap.registerPlugin(ScrollTrigger);
+  gsap.utils.toArray('#hero .reveal').forEach((el,i)=>{
+    gsap.to(el, {opacity:1, y:0, duration:.9, delay:.15+i*.09, ease:'power3.out'});
+  });
+  gsap.utils.toArray('.reveal').forEach(el=>{
+    if (el.closest('#hero')) return;
+    gsap.to(el, {opacity:1, y:0, duration:.8, ease:'power3.out', scrollTrigger:{trigger:el, start:'top 90%'}});
+  });
+  gsap.utils.toArray('.bento-item').forEach((el,i)=>{
+    gsap.to(el, {opacity:1, y:0, duration:.7, delay:(i%6)*.06, ease:'power3.out', scrollTrigger:{trigger:el, start:'top 92%'}});
+  });
+}
+
+// ── Counters (falls back to IntersectionObserver if ScrollTrigger is unavailable) ──
+document.querySelectorAll('[data-count]').forEach(el=>{
+  const target = parseFloat(el.dataset.count);
+  function playCount(){
+    if (REDUCE_MOTION) { el.textContent = target; return; }
+    const dur=1200, t0=performance.now();
+    function tick(now){
+      const p = Math.min((now-t0)/dur, 1);
+      const eased = 1-Math.pow(1-p,3);
+      el.textContent = Math.floor(eased*target);
+      if (p<1) requestAnimationFrame(tick); else el.textContent = target;
+    }
+    requestAnimationFrame(tick);
+  }
+  if (GSAP_OK) {
+    ScrollTrigger.create({ trigger: el, start: 'top 90%', once:true, onEnter: playCount });
+  } else if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{ if (entry.isIntersecting) { playCount(); io.unobserve(el); } });
+    }, {threshold:.4});
+    io.observe(el);
+  } else {
+    el.textContent = target;
+  }
+});
+
+// ── Three.js ambient particle field (subtle, theme-tinted; skipped if CDN blocked) ─
+(function initThree(){
+  if (REDUCE_MOTION || typeof THREE === 'undefined') return;
+  const canvas = document.getElementById('bg-canvas');
+  const renderer = new THREE.WebGLRenderer({canvas, antialias:true, alpha:true});
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setClearColor(0x000000, 0);
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(65, window.innerWidth/window.innerHeight, .1, 1000);
+  camera.position.z = 32;
+
+  const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const accentHex = isDark ? 0xE8815A : 0xC1502E;
+  const inkHex = isDark ? 0xF3EEE4 : 0x171310;
+
+  const count = 900;
+  const geo = new THREE.BufferGeometry();
+  const positions = new Float32Array(count*3);
+  const colors = new Float32Array(count*3);
+  const cAccent = new THREE.Color(accentHex);
+  const cInk = new THREE.Color(inkHex);
+  for (let i=0;i<count;i++){
+    positions[i*3] = (Math.random()-0.5)*110;
+    positions[i*3+1] = (Math.random()-0.5)*110;
+    positions[i*3+2] = (Math.random()-0.5)*70;
+    const c = Math.random() < 0.18 ? cAccent : cInk;
+    colors[i*3]=c.r; colors[i*3+1]=c.g; colors[i*3+2]=c.b;
+  }
+  geo.setAttribute('position', new THREE.BufferAttribute(positions,3));
+  geo.setAttribute('color', new THREE.BufferAttribute(colors,3));
+  const mat = new THREE.PointsMaterial({size:.16, vertexColors:true, transparent:true, opacity:.35, sizeAttenuation:true, depthWrite:false});
+  const particles = new THREE.Points(geo, mat);
+  scene.add(particles);
+
+  let mouseX=0, mouseY=0;
+  document.addEventListener('mousemove', e=>{
+    mouseX = (e.clientX/window.innerWidth-0.5)*0.4;
+    mouseY = (e.clientY/window.innerHeight-0.5)*0.25;
+  });
+
+  const clock = new THREE.Clock();
+  function animate(){
+    requestAnimationFrame(animate);
+    const t = clock.getElapsedTime();
+    particles.rotation.y = t*0.015;
+    particles.rotation.x = t*0.006;
+    camera.position.x += (mouseX*6 - camera.position.x)*0.03;
+    camera.position.y += (-mouseY*4 - camera.position.y)*0.03;
+    camera.lookAt(scene.position);
+    renderer.render(scene, camera);
+  }
+  animate();
+
+  window.addEventListener('resize', ()=>{
+    camera.aspect = window.innerWidth/window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  });
+})();
+</script>
+</body>
+</html>
